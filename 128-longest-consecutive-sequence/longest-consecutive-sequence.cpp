@@ -5,22 +5,22 @@ using namespace std;
 class Solution {
 public:
     int longestConsecutive(vector<int>& nums) {
+        if (nums.empty()) return 0;
+
         unordered_set<int> numSet(nums.begin(), nums.end());
         int maxLength = 0;
 
         for (int num : nums) {
-            // Check if it's the start of a sequence
+            // Only check if num - 1 doesn't exist, to start a new sequence
             if (numSet.find(num - 1) == numSet.end()) {
                 int currentNum = num;
                 int currentStreak = 1;
 
-                // Count the length of the sequence
                 while (numSet.find(currentNum + 1) != numSet.end()) {
                     currentNum++;
                     currentStreak++;
                 }
 
-                // Update the maximum length
                 maxLength = max(maxLength, currentStreak);
             }
         }
