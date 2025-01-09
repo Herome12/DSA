@@ -12,29 +12,32 @@
 class Solution {
 public:
     vector<string> binaryTreePaths(TreeNode* root) {
-        vector<string> paths;
+        vector<string> result; 
+        if (root == NULL) return result; 
 
-        // Base case: if root is NULL, return an empty vector
-        if (root == NULL) return paths;
+        
+        dfs(root, "", result);
+        return result;
+    }
 
-        // Leaf node: return the single path as a string
-        if (root->left == NULL && root->right == NULL) {
-            paths.push_back(to_string(root->val));
-            return paths;
+private:
+    void dfs(TreeNode* node, string path, vector<string>& result) {
+        if (node == NULL) return;
+
+
+        if (!path.empty()) {
+            path += "->"; 
+        }
+        path += to_string(node->val);
+
+
+        if (node->left == NULL && node->right == NULL) {
+            result.push_back(path);
+            return;
         }
 
-        // Recursive case: get paths from left and right subtrees
-        vector<string> leftPaths = binaryTreePaths(root->left);
-        vector<string> rightPaths = binaryTreePaths(root->right);
-
-        // Prepend the current node's value to each path and add to result
-        for (string path : leftPaths) {
-            paths.push_back(to_string(root->val) + "->" + path);
-        }
-        for (string path : rightPaths) {
-            paths.push_back(to_string(root->val) + "->" + path);
-        }
-
-        return paths;
+        
+        dfs(node->left, path, result);
+        dfs(node->right, path, result);
     }
 };
