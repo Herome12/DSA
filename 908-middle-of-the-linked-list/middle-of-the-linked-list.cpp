@@ -9,31 +9,22 @@
  * };
  */
 class Solution {
-
 public:
     ListNode* middleNode(ListNode* head) {
-        int count =0;
-        int mid =0;
-        ListNode* temp = head;
-        if(temp == NULL) return NULL;
+        
+        if(head==nullptr || head->next==NULL) return head;
+        
+        ListNode* slow = head;
+        ListNode* fast = head;
 
-        while(temp!=NULL){
-            count++;
-            temp=temp->next;
+
+        while(fast!=nullptr && fast->next!=nullptr){
+            slow = slow->next;
+            fast = fast->next->next;
+
         }
-        
-        temp = head;
-        while(mid<(count/2)){
-            mid++;
-            temp=temp->next;
-        }
-     
 
 
-        return temp;
-
-        
-
-        
+        return slow;
     }
 };
