@@ -1,22 +1,24 @@
 class Solution {
 public:
     void merge(vector<int>& nums1, int m, vector<int>& nums2, int n) {
-        int n1 = nums1.size();
-        int n2 = nums2.size();
-        int i=m-1;
-        int j=n-1;
-        int k=m+n-1;
-        while(i>=0 && j>=0){
-            if(nums1[i]> nums2[j]){
-                nums1[k--]=nums1[i--];
+        vector<int> nums; // Temporary vector for merging
 
-            }
-            else{
-                nums1[k--]=nums2[j--];
-            }
-        } 
-        while(j>=0){
-            nums1[k--]=nums2[j--];
+        // Push only the first m elements of nums1
+        for (int i = 0; i < m; i++) {
+            nums.push_back(nums1[i]);
+        }
+
+        // Push only the n elements of nums2
+        for (int i = 0; i < n; i++) {
+            nums.push_back(nums2[i]);
+        }
+
+        // Sort the merged elements
+        sort(nums.begin(), nums.end());
+
+        // Copy sorted elements back to nums1
+        for (int i = 0; i < nums.size(); i++) {
+            nums1[i] = nums[i];
         }
     }
 };
