@@ -4,22 +4,32 @@ public:
         vector<vector<int>> ans2;
         int target = 0;
 
-        sort(nums.begin(), nums.end()); 
+        sort(nums.begin(), nums.end()); // Sorting helps in duplicate removal
 
         for (int i = 0; i < nums.size(); i++) {
-            if (i > 0 && nums[i] == nums[i - 1]) continue; 
+            if (i > 0 && nums[i] == nums[i - 1]) continue; // Skip duplicate elements
 
-            unordered_map<int, int> ans; 
-            for (int j = i + 1; j < nums.size(); j++) {
-                int c = target - nums[i] - nums[j];
+            int left = i + 1, right = nums.size() - 1; // Two-pointer approach
 
-                if (ans.find(c) != ans.end()) {
-                    ans2.push_back({nums[i], nums[j], c});
+            while (left < right) {
+                int sum = nums[i] + nums[left] + nums[right];
 
-                    
-                    while (j + 1 < nums.size() && nums[j] == nums[j + 1]) j++;
+                if (sum == target) {
+                    ans2.push_back({nums[i], nums[left], nums[right]});
+
+                    // Move `left` and `right` to avoid duplicates
+                    while (left < right && nums[left] == nums[left + 1]) left++;
+                    while (left < right && nums[right] == nums[right - 1]) right--;
+
+                    left++;
+                    right--;
+                } 
+                else if (sum < target) {
+                    left++;
+                } 
+                else {
+                    right--;
                 }
-                ans[nums[j]] = j; 
             }
         }
         return ans2;
