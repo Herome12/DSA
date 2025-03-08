@@ -1,28 +1,28 @@
 #include <vector>
+#include <map>
 using namespace std;
 
 class Solution {
 public:
     int equalPairs(vector<vector<int>>& grid) {
         int count = 0;
-        int rows = grid.size();
-        int columns = grid[0].size();
+        int n = grid.size();
+        map<vector<int>, int> rowMap; // Using ordered map (supports vector keys)
 
-        for (int i = 0; i < rows; i++) {  // Iterate over rows
-            for (int j = 0; j < columns; j++) {  // Iterate over columns
-                bool match = true;
-
-                // Compare the i-th row with the j-th column
-                for (int k = 0; k < rows; k++) {
-                    if (grid[i][k] != grid[k][j]) {
-                        match = false;
-                        break;
-                    }
-                }
-
-                if (match) count++;
-            }
+        // Store row frequencies
+        for (auto& row : grid) {
+            rowMap[row]++;
         }
+
+        // Check column occurrences in the row map
+        for (int j = 0; j < n; j++) {
+            vector<int> col;
+            for (int i = 0; i < n; i++) {
+                col.push_back(grid[i][j]); // Construct column as vector
+            }
+            count += rowMap[col];  // Add count of matching rows
+        }
+
         return count;
     }
 };
