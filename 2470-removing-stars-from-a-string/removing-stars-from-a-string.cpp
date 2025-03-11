@@ -1,17 +1,28 @@
 class Solution {
 public:
     string removeStars(string s) {
-        for (int i = 0; i < s.size(); i++) {
-            if (s[i] == '*') {
-                if (i > 0) { 
-                    s.erase(i - 1, 2); 
-                    i -= 2; 
-                } else {
-                    s.erase(i, 1); 
-                    i--; 
+        std::stack<char> st;
+
+        for (char c : s) {
+            if (c == '*') {
+                if (!st.empty()) {
+                    st.pop(); // Remove the last added character
                 }
+            } else {
+                st.push(c); // Push normal characters
             }
         }
-        return s;
+
+        // Build the resulting string from the stack
+        std::string result;
+        while (!st.empty()) {
+            result += st.top();
+            st.pop();
+        }
+
+        // Since the stack stores characters in reverse order, reverse the result
+        std::reverse(result.begin(), result.end());
+
+        return result;
     }
 };
