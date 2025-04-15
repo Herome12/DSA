@@ -1,17 +1,19 @@
 class Solution {
 public:
     int removeDuplicates(vector<int>& nums) {
-        if (nums.empty()) return 0;
+        set<int> result;
 
-        int index = 1; 
-
-        for (int i = 1; i < nums.size(); i++) {
-            if (nums[i] != nums[i - 1]) {
-                nums[index] = nums[i];
-                index++;
-            }
+        // Insert elements into set to remove duplicates
+        for (int i = 0; i < nums.size(); i++) {
+            result.insert(nums[i]);
         }
 
-        return index; 
+        // Clear original vector and re-insert unique elements
+        nums.clear();
+        for (int val : result) {
+            nums.push_back(val);
+        }
+
+        return nums.size(); // Return number of unique elements
     }
 };
