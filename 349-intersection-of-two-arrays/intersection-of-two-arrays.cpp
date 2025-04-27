@@ -1,18 +1,18 @@
+#include <unordered_set>
+
 class Solution {
 public:
     vector<int> intersection(vector<int>& nums1, vector<int>& nums2) {
-        vector<int> inter; // Start with an empty vector
-        for(int i = 0; i < nums1.size(); i++) {
-            for(int j = 0; j < nums2.size(); j++) {
-                if(nums1[i] == nums2[j]) {
-                    // Check if the element is not already in the result vector
-                    if(find(inter.begin(), inter.end(), nums1[i]) == inter.end()) {
-                        inter.push_back(nums1[i]); // Add it if not already in the result
-                    }
-                    break; // No need to check further elements in nums2
-                }
+        unordered_set<int> s(nums1.begin(), nums1.end()); // store elements of nums1
+        unordered_set<int> ans; // to store intersection (no duplicates)
+
+        for (int i = 0; i < nums2.size(); i++) {
+            if (s.find(nums2[i]) != s.end()) { // if nums2[i] is present in nums1
+                ans.insert(nums2[i]);
             }
         }
-        return inter;
+
+        vector<int> result(ans.begin(), ans.end()); // convert set to vector
+        return result;
     }
 };
