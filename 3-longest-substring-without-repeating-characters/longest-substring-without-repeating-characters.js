@@ -1,24 +1,22 @@
-/**
- * @param {string} s
- * @return {number}
- */
 var lengthOfLongestSubstring = function(s) {
-    let left =0;
-    let size = s.length;
-    const sliding = new Set();
-    let maxlen = 0;
-    for(let right =0;right<size;right++){
-       while(sliding.has(s[right])){
-        sliding.delete(s[left]);
-        left++;
-       }
+    let left = 0;
+    let right = s.length;
+    let sliding = new Set();
+    let up = 0;        // start from 0
+    let maxLen = 0;
 
-       sliding.add(s[right]);
+    while (up < right) {
 
-       maxlen = Math.max(maxlen,right-left+1);
+        while (sliding.has(s[up])) {
+            sliding.delete(s[left]);
+            left++;
+        }
+
+        sliding.add(s[up]);
+        up++;
+
+        maxLen = Math.max(maxLen, up - left);
     }
 
-    return maxlen;
-
-    
+    return maxLen;
 };
