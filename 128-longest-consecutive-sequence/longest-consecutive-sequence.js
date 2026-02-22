@@ -1,23 +1,35 @@
+/**
+ * @param {number[]} nums
+ * @return {number}
+ */
 var longestConsecutive = function(nums) {
-    let set = new Set(nums);   // Add everything first
+    let set = new Set(nums);
 
-    let longest = 0;
+    let longest =0;
+    
+    
 
-    for (let num of set) {     // Iterate over set (avoid duplicates)
+    for(let num of set){
 
-        // Start only if it is the beginning of a sequence
-        if (!set.has(num - 1)) {
-            let currentNum = num;
-            let count = 1;
+        if(!set.has(num-1)){
+          let   currentNum = num;
+           let  count =1;
 
-            while (set.has(currentNum + 1)) {
+            while(set.has(currentNum+1)){
                 currentNum++;
                 count++;
             }
 
-            longest = Math.max(longest, count);
-        }
-    }
+            longest = Math.max(longest,count);
 
+
+        }
+
+
+
+
+        
+    }
     return longest;
+
 };
