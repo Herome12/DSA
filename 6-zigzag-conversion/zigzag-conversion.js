@@ -7,7 +7,7 @@ function convert(s, numRows) {
 
     if(numRows === 1) return s;
 
-    let rows = new Array(numRows).fill("").map(() => "");
+    let rows = new Array(numRows).fill("");
     let currentRow = 0;
     let goingDown = false;
 
