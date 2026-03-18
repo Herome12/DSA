@@ -1,32 +1,34 @@
+/**
+ * @param {string} s
+ * @param {number} k
+ * @return {number}
+ */
 var characterReplacement = function(s, k) {
-
-    if (!s || s.length === 0) return 0;
-
-    let left = 0;
-    let right = 0;
-    let count = 0;
-
-    let freq = new Map();
+    let map = new Map();
+    let left =0;
+    let right =0;
     let maxFreq = 0;
+    let result=0;
 
-    while (right < s.length) {
 
-        // increase frequency of right character
-        freq.set(s[right], (freq.get(s[right]) || 0) + 1);
+    while(right<s.length){
 
-        // update max frequency in window
-        maxFreq = Math.max(maxFreq, freq.get(s[right]));
+        map.set(s[right],(map.get(s[right])||0)+1);
+        maxFreq = Math.max(maxFreq,map.get(s[right]));
 
-        // if window invalid → shrink
-        if ((right - left + 1) - maxFreq > k) {
-            freq.set(s[left], freq.get(s[left]) - 1);
+        while((right-left+1)-maxFreq >k){
+            map.set(s[left],map.get(s[left])-1);
             left++;
         }
 
-        count = Math.max(count, right - left + 1);
-
+       
+        result = Math.max(result, right - left + 1);
         right++;
-    }
 
-    return count;
+
+
+
+        
+    }
+    return result;
 };
