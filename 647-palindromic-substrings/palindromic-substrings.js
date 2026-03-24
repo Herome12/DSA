@@ -1,37 +1,19 @@
-/**
- * @param {string} s
- * @return {number}
- */
 var countSubstrings = function(s) {
-    let count =0;
-    let left =0;
-    let right =0;
+    let n = s.length;
+    let dp = Array.from({ length: n }, () => Array(n).fill(false));
 
-    while(left<s.length){
-        right=left;
+    let count = 0;
 
-        while(right<s.length){
+    for (let i = n - 1; i >= 0; i--) {
+        for (let j = i; j < n; j++) {
 
-            let l = left;
-            let r = right;
-            let isPalindrome = true;
-
-            while(l<r){
-
-                if(s[l]!==s[r]){
-                    isPalindrome = false;
-                    break;
-                }
-
-                l++;
-                r--
+            if (s[i] === s[j] && (j - i <= 2 || dp[i + 1][j - 1])) {
+                dp[i][j] = true;
+                count++;
             }
-            if(isPalindrome)  count++;
-            
-            right++;
-        }
 
-        left++;
+        }
     }
+
     return count;
 };
